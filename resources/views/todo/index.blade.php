@@ -12,15 +12,19 @@
         <span class="purge">Purge</span>
       </header>
 
-    <form>
-      <input type="text" name="title" placeholder="Type new todo.">
+      <form action = "{{ route('todo_store') }}" method = "POST" >
+        @csrf
+        <input type = "text" name = "title" value = "" placeholder = "Type new todo.">
     </form>
 
     <ul>
-        <li>
-        <input type="checkbox">
-        <span class="delete">x</span>
-      </li>
+        @foreach ($todos as $todo)
+        <li id = "{{ $todo->id }}">
+                <input type = "checkbox"<?= $todo->is_done ? 'checked' : ''; ?>>
+                <span>{{ $todo->title }}</span>
+                <span class = "delete">x</span>
+        </li>
+        @endforeach
     </ul>
   </main>
   <script src="js/main.js"></script>
