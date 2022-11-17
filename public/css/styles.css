@@ -52,3 +52,8 @@ body {
     margin-left: auto;
     padding-left: 8px;
   }
+
+  li a {
+    text-decoration:none;
+    color: #ccc;
+  }

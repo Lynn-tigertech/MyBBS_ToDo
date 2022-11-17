@@ -31,10 +31,11 @@ class TodoController extends Controller
 
     public function destroy($id)
     {
+
+        $todo = Todo::find($id);
         $todo->delete();
 
         return redirect()
             ->route('todo');
     }
-
 }
