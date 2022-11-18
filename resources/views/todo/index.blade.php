@@ -19,7 +19,7 @@
 
     <ul>
         @foreach ($todos as $todo)
-        <li id = "{{ $todo->id }}">
+        <li id = "{{ $todo->id }}" class="chk">
             <input type = "checkbox" <?= $todo->is_done ? 'checked' : ''; ?>>
             <span>{{ $todo->title }}</span>
             <span class = "delete">
@@ -29,20 +29,18 @@
         @endforeach
     </ul>
   </main>
-  <script src="js/main.js"></script>
-<script>
-    'use strict';
-    const purge = document.querySelector('.purge');
-    purge.addEventListener('click', () => {
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script>
+  $(function(){
+	$('.purge').on('click', function() {
         if (!confirm('Are you sure?')) {
             return;
         }
-    fetch(purge, {
-      method: 'POST',
-      body: new URLSearchParams({
-      }),
-    });
-  });
+		$('.chk input[type=checkbox]:checked').each(function() {
+			$(this).parents('li').remove();
+		});
+	});
+});
 </script>
 </body>
 </html>
