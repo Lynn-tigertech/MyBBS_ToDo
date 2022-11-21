@@ -38,4 +38,12 @@ class TodoController extends Controller
         return redirect()
             ->route('todo');
     }
+
+    public function deleteAll(Request $request)
+    {
+
+        Todo::whereIn('id',explode("," , $request->ids))->delete();
+
+        return response()->json(['success'=>"Todos Deleted successfully."]);
+    }
 }

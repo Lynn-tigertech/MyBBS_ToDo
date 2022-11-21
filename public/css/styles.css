@@ -45,7 +45,7 @@ body {
   }
 
   .delete,
-  .purge {
+  .delete-all-todos {
     color: #ccc;
     cursor: pointer;
     font-size: 14px;
