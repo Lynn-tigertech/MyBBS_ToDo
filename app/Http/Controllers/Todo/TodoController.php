@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class TodoController extends Controller
 {
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory
+     */
     public function index()
     {
         $todos = Todo::latest()->get();
@@ -15,6 +19,10 @@ class TodoController extends Controller
             ->with(['todos' => $todos]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -29,7 +37,11 @@ class TodoController extends Controller
             ->route('todo');
     }
 
-    public function destroy($id)
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(int $id)
     {
 
         $todo = Todo::find($id);
@@ -39,10 +51,14 @@ class TodoController extends Controller
             ->route('todo');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function deleteAll(Request $request)
     {
 
-        Todo::whereIn('id',explode("," , $request->ids))->delete();
+        Todo::whereIn('id', explode("," , $request->ids))->delete();
 
         return response()->json(['success'=>"Todos Deleted successfully."]);
     }
