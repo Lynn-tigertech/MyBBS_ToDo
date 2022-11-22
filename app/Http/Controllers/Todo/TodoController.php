@@ -60,6 +60,6 @@ class TodoController extends Controller
 
         Todo::whereIn('id', explode("," , $request->ids))->delete();
 
-        return response()->json(['success'=>"Todos Deleted successfully."]);
+        return response()->json(['success' => "Todos Deleted successfully."]);
     }
 }

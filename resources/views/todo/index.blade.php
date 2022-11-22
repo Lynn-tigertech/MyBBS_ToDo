@@ -18,18 +18,18 @@
                 <span class="delete-all-todos" data-url="{{ route('todo.deleteall') }}" >Purge</span>
         </header>
 
-        <form action = "{{ route('todo_store') }}" method = "POST" >
+        <form action="{{ route('todo_store') }}" method="POST">
             @csrf
-            <input type = "text" name = "title" value = "" placeholder = "Type new todo.">
+            <input type="text" name="title" value="" placeholder="Type new todo.">
         </form>
 
         <ul>
             @foreach ($todos as $todo)
-                <li id = "{{ $todo->id }}" class="chk">
-                    <input type="checkbox" class="sub_chk" data-id="{{$todo->id}}">
+                <li id="{{ $todo->id }}" class="chk">
+                    <input type="checkbox" class="sub_chk" data-id="{{ $todo->id }}">
                     <span>{{ $todo->title }}</span>
-                    <span class = "delete">
-                        <a onclick = "return confirm('Are you sure want to delete this record?')" href = "{{ url('todo_delete/'.$todo->id) }}">x</a>
+                    <span class="delete">
+                        <a onclick="return confirm('Are you sure want to delete this record?')" href="{{ route('todo.delete', $todo->id) }}">x</a>
                     </span>
                 </li>
             @endforeach
@@ -38,10 +38,10 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#deleteAllTodo').on('click', function(e) {
-                if ($(this).is(':checked',true)) {
+                if ($(this).is(':checked', true)) {
                     $(".sub_chk").prop('checked', true);
                 } else {
-                    $(".sub_chk").prop('checked',false);
+                    $(".sub_chk").prop('checked', false);
                 }
             });
 
@@ -52,7 +52,7 @@
                     allTodos.push($(this).attr('data-id'));
                 });
 
-                if (allTodos.length <= 0 ) {
+                if (allTodos.length <= 0) {
                     alert("Please select atleast one checkbox.");
                 } else {
                     let check = confirm("Are you sure you want to delete this record?");
