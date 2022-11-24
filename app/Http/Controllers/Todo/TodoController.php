@@ -2,64 +2,67 @@
 
 namespace App\Http\Controllers\Todo;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Todo;
-use Illuminate\Http\Request;
+use App\Services\TodoService;
 
 class TodoController extends Controller
 {
 
     /**
-     * @return \Illuminate\Contracts\View\Factory
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
-    {
-        $todos = Todo::latest()->get();
+     public function index()
+     {
+
+        $todoService = new TodoService();
+        $todos = $todoService->getAll();
+
         return view('todo.index')
             ->with(['todos' => $todos]);
-    }
+        }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-        ]);
 
-        $todo = new Todo();
-        $todo->title = $request->title;
-        $todo->save();
+        $todoService = new TodoService();
+        $todostore = $todoService->getStore($request);
 
         return redirect()
-            ->route('todo');
+            ->route('todo')
+            ->with(['todos tore' => $todostore,
+            ]);
     }
 
     /**
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(int $id)
+    public function destroy(int $id): \Illuminate\Http\RedirectResponse
     {
-
-        $todo = Todo::find($id);
-        $todo->delete();
+        $todoService = new TodoService();
+        $tododelete = $todoService->getDelete($id);
 
         return redirect()
-            ->route('todo');
+            ->route('todo')
+            ->with(['todoelete' => $tododelete]);
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function deleteAll(Request $request)
+    public function deleteAll(Request $request): \Illuminate\Http\JsonResponse
     {
 
         Todo::whereIn('id', explode("," , $request->ids))->delete();
 
         return response()->json(['success' => "Todos Deleted successfully."]);
     }
+
 }
