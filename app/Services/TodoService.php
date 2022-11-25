@@ -9,7 +9,7 @@ class TodoService
 {
     /**
      * getAll
-     * @return String
+     * @return array
      */
     public function getAll()
     {

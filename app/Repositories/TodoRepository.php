@@ -10,7 +10,7 @@ class TodoRepository
 {
     /**
      * getAll
-     * @return todo
+     * @return array
      */
     public function getAll()
     {
