@@ -14,14 +14,14 @@ class TodoController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
      public function index()
-     {
+    {
 
         $todoService = new TodoService();
         $todos = $todoService->getAll();
 
         return view('todo.index')
             ->with(['todos' => $todos]);
-        }
+    }
 
     /**
      * @param Request $request

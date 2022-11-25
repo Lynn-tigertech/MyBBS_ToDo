@@ -9,7 +9,7 @@ class TodoService
 {
     /**
      * getAll
-     * @return mixed
+     * @return String
      */
     public function getAll()
     {
@@ -24,18 +24,16 @@ class TodoService
      */
     public function getStore(Request $request): ?Todo
     {
-
         $todoRepository = new TodoRepository();
         return $todoRepository->getStore($request);
-
     }
 
     /**
      * getDelete
-     * @param $id
-     * @return mixed
+     * @param int $id
+     * @return void
      */
-    public function getDelete($id)
+    public function getDelete(int $id)
     {
         $todoRepository = new TodoRepository();
         return $todoRepository->getDelete($id);

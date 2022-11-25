@@ -10,7 +10,7 @@ class TodoRepository
 {
     /**
      * getAll
-     * @return mixed
+     * @return todo
      */
     public function getAll()
     {
@@ -36,10 +36,10 @@ class TodoRepository
 
     /**
      * getDelete
-     * @param $id
-     * @return mixed
+     * @param int $id
+     * @return void
      */
-    public function getDelete($id)
+    public function getDelete(int $id)
     {
         $todo = Todo::find($id);
         $todo->delete();
