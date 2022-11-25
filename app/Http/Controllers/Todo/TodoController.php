@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Todo;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Todo;
@@ -11,9 +16,9 @@ class TodoController extends Controller
 {
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
-    public function index()
+    public function index(): Factory|View|Application
     {
 
         $todoService = new TodoService();
@@ -25,9 +30,9 @@ class TodoController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
 
         $todoService = new TodoService();
@@ -41,9 +46,9 @@ class TodoController extends Controller
 
     /**
      * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function destroy(int $id): \Illuminate\Http\RedirectResponse
+    public function destroy(int $id): RedirectResponse
     {
         $todoService = new TodoService();
         $tododelete = $todoService->getDelete($id);
@@ -55,9 +60,9 @@ class TodoController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function deleteAll(Request $request): \Illuminate\Http\JsonResponse
+    public function deleteAll(Request $request): JsonResponse
     {
 
         Todo::whereIn('id', explode("," , $request->ids))->delete();

@@ -4,15 +4,16 @@ namespace App\Repositories;
 
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class TodoRepository
 {
     /**
      * getAll
-     * @return array
+     * @return Collection
      */
-    public function getAll()
+    public function getAll(): Collection
     {
         return Todo::latest()->get();
     }
@@ -37,9 +38,9 @@ class TodoRepository
     /**
      * getDelete
      * @param int $id
-     * @return void
+     * @return int|null
      */
-    public function getDelete(int $id)
+    public function getDelete(int $id): ?int
     {
         $todo = Todo::find($id);
         $todo->delete();
