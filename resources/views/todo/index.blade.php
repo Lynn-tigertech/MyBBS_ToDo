@@ -20,6 +20,9 @@
         <form action="{{ route('todo_store') }}" method="POST">
             @csrf
             <input type="text" name="title" value="" placeholder="Type new todo.">
+                @error('title')
+                    <div class="error">{{ $message }}</div>
+                @enderror
         </form>
 
         <ul>
