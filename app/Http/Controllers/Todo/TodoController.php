@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Todo;
 
+use App\Http\Controllers\Controller;
+use App\Models\Todo;
+use App\Services\TodoService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Todo;
-use App\Services\TodoService;
 
 class TodoController extends Controller
 {
@@ -40,7 +40,8 @@ class TodoController extends Controller
 
         return redirect()
             ->route('todo')
-            ->with(['todos tore' => $todostore,
+            ->with([
+                'todos tore' => $todostore,
             ]);
     }
 
@@ -65,7 +66,7 @@ class TodoController extends Controller
     public function deleteAll(Request $request): JsonResponse
     {
 
-        Todo::whereIn('id', explode("," , $request->ids))->delete();
+        Todo::whereIn('id', explode(",", $request->ids))->delete();
 
         return response()->json(['success' => "Todos Deleted successfully."]);
     }

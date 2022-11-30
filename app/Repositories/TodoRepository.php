@@ -28,7 +28,7 @@ class TodoRepository
         $request->validate([
             'title' => 'required',
         ]);
-        $todo = new todo;
+        $todo = new todo();
         $todo->title = $request['title'];
         $todo->save();
 
